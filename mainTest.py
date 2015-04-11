@@ -6,8 +6,8 @@ import random
 students = []
 dorms = []
 NUMDORMS = 6
-NUMSINGLES = 3
-NUMDOUBLES = 2
+NUMSINGLES = 1
+NUMDOUBLES = 1
 ROOMSPERDORM = NUMSINGLES + NUMDOUBLES
 NUMSTUDENTS = NUMDORMS * (NUMSINGLES + NUMDOUBLES * 2)
 
@@ -15,9 +15,9 @@ def start():
     dormWest = Dorm(1, 1, "West")
     dormNorth = Dorm(1, 1, "North")
     dormEast = Dorm(1, 1, "East")
-    dormSouth = Dorm(1, 1, "South")
-    dormLinde = Dorm(1, 1, "Linde")
-    dormCase = Dorm(1, 1, "Case")
+    dormSouth = Dorm(0, 1, "South")
+    dormLinde = Dorm(0, 1, "Linde")
+    dormCase = Dorm(0, 1, "Case")
     dorms.append(dormWest)
     dorms.append(dormNorth)
     dorms.append(dormEast)
