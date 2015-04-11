@@ -33,4 +33,4 @@ class Room:
         self.students_.append(student)
         
     def __str__(self):
-        return self.dorm_ + str(self.rmNumber)
+        return self.dorm_ + str(self.rmNumber_)
