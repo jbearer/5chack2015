@@ -73,6 +73,7 @@ def initStudents():
             listDoubles.append(listStudents[i]) 
             
     listDoubles = pairSingles(listDoubles)
+    listDoubles = clearUp(listDoubles)
     
     assign(listSingles)
     assign(listDoubles)
@@ -80,12 +81,26 @@ def initStudents():
 def pairSingles(doubles):
     for i in range(len(doubles)):
         if doubles[i].getRoomMate() == None:
-            for j in range(i, len(doubles)):
+            for j in range(i+1, len(doubles)):
                 if doubles[j].getRoomMate() == None:
-                    doubles[i].setRoomMate(doubles[j])
-                    doubles[j].setRoomMate(doubles[i])
+                    doubles[i].setRoomMate(doubles[j].name_)
+                    doubles[j].setRoomMate(doubles[i].name_)
     return doubles
 
+def clearUp(listDoubles):
+    i = 0
+    while i < len(listDoubles)-1:
+        name = listDoubles[i].roomMate_
+        j = i + 1
+        while j < len(listDoubles):
+            if listDoubles[j].name_ == name:
+                listDoubles.pop(j)
+                j = len(listDoubles)
+                i = -1
+            j+=1
+        i += 1
+    return listDoubles
+    
 def assign(students):
     m = Matrix(students, dorms)
     result = m.optimize()
@@ -93,7 +108,8 @@ def assign(students):
         print pairing[0], pairing[1]
     
 if __name__ == '__main__':
-    initStudents()
+    
     start()
+    initStudents()
     
     

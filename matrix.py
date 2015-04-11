@@ -8,11 +8,11 @@ class Matrix:
         for dorm in dorms:
             rooms += dorm.emptyRooms(roomType)
             
+        
         self.students_ = students
         self.rooms_ = rooms
             
-        #self.data_ = [[maxVal - student.getWeight(room.getDormName()) for room in rooms] for student in students]
-        self.data_ = [[student.getWeight(room.getDormName()) for room in rooms] for student in students]
+        self.data_ = [[maxVal - student.getWeight(room.getDormName()) for room in rooms] for student in students]
         
         if len(students) < len(rooms):
             numExtraRows = len(rooms) - len(students)

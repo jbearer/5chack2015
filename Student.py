@@ -25,7 +25,7 @@ class Student:
     def setRoomMate(self, mate):
         self.roomMate_ = mate
     def setRoomType(self, rType):
-        self.roomType = rType
+        self.roomType_ = rType
         
     def __str__(self):
         return self.name_
