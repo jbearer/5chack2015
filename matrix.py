@@ -140,12 +140,26 @@ class Matrix:
                 col_index += [i]
         return col_index
         
+    def findUnprimedZerosInRow(self, row):
+        col_index = []
+        for i in range(len(self.data_[row])):
+            if self.zeros_[row][i] == 0:
+                col_index += [i]
+        return col_index
+        
     def findStarredZerosInCol(self, column):
         row_index = []
         for row in range(len(self.data_)):
             if self.zeros_[row][column] == 2:
                 row_index += [row]
         return row_index
+        
+    def findStarredZerosInRow(self, row):
+        col_index = []
+        for col in range(self.numRooms()):
+            if self.zeros_[row][col] == 2:
+                col_index += [col]
+        return col_index
 
     def findPrimedZerosInCol(self, rowNum):
         colInd = []
@@ -188,6 +202,36 @@ class Matrix:
             if self.data_.coverCol(i):
                 for j in range(len(self.data_)):
                     self.data_[j][i] += min
-                   
+        
+    def primeAllZerosInColumn(self, col):
+        for row in range(self.numStudents()):
+            if self.isNeutral(row, col):
+                self.primeZero(row, col)
+                
+    def primeAllZerosInRow(self, row):
+        for col in range(self.numRooms()):
+            if self.isNeutral(row, col):
+                self.primeZero(row, col)
+    
+    def step3(self):
+        for row in range(self.numStudents()):
+            unprimed = self.findUnprimedZerosInRow(row)
+            for col in unprimed:
+                self.primeAllZerosInColumn(col)
+                self.primeAllZerosInRow(row)
+                self.starZero(row, col)
+                
+    def step4(self):
+        for row in range(self.numStudents()):
+            starred = self.findStarredZerosInRow(row)
+            if not starred:
+                self.coverRow(row)
+                cols = self.findPrimedZerosInRow(row)
+                for col in cols:
+                    self.coverCol(col)
+                    rowsToMark = self.findStarredZerosInCol(col)
+                    for rowToMark in rowsToMark:
+                        self.cover(rowToMark)
+
     def __str__(self):
         return self.data_.__str__()
