@@ -1,9 +1,17 @@
 from Room import *
 
 class Dorm:
-    def __init__ (self, listRooms, name):
-        self.listRooms_ = listRooms
-        self.numRooms_ = len(listRooms)
+    def __init__ (self, numSingles, numDoubles, name):
+        self.numSingles_ = numSingles
+        self.numDoubles_ = numDoubles
+        
+        self.listRooms_ = []
+        for i in range(numSingles):
+            listRooms.append(Room(1))
+        for i in range(numDoubles):
+            listRooms.append(Room(2))
+            
+        self.numRooms_ = len(listRooms_)
         self.name_ = name
     
     def existsEmptyRoom (self, num):
