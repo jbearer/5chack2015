@@ -18,15 +18,15 @@ def initDorms():
         
 def initStudents():
     weights1 = {'':1, ' ':19, '  ':3, '   ':1}
-    stud1 = Student(1, None, weights1)
+    stud1 = Student(1, None, weights1, 'a')
     students.append(stud1)
     
     weights2 = {'':11, ' ':18, '  ':6, '   ':20}
-    stud2 = Student(1, None, weights2)
+    stud2 = Student(1, None, weights2, 'b')
     students.append(stud2)
     
     weights3 = {'':6, ' ':3, '  ':2, '   ':15}
-    stud3 = Student(1, None, weights3)
+    stud3 = Student(1, None, weights3, 'c')
     students.append(stud3)
     
 if __name__ == '__main__':
