@@ -9,12 +9,18 @@ class Matrix:
             
         self.data_ = [[maxVal - student.getWeight(room.getDormName()) for room in rooms] for student in students]
         
+        print self.numRooms()
+        print self.numStudents()
+        
         if len(students) < len(rooms):
             numExtraRows = len(rooms) - len(students)
             extraRow = [0] * len(rooms)
-            self.data_ += extraRow*numExtraRows
+            self.data_ += [extraRow]*numExtraRows
             
-        elif len(rooms) < len(students):
+        print self.numRooms()
+        print self.numStudents()
+            
+        if len(rooms) < len(students):
             numExtraCols = len(students) - len(rooms)
             for row in self.data_:
                 row += [0] * numExtraCols
@@ -53,9 +59,13 @@ class Matrix:
         for val in self.data_[row]:
             val -= n
             
+        self.updateZeros()
+            
     def subtractFromCol(self, col, n):
         for row in self.data_:
             row[col] -= n
+            
+        self.updateZeros()
             
     def makeNeutralZero(self, row, col):
         assert(self.zeros_[row][col] != -1)
@@ -104,6 +114,15 @@ class Matrix:
         
     def getCoveredCols(self):
         return self.coveredCols_
+        
+    def updateZeros(self):
+        for row in range(self.numStudents()):
+            for col in range(self.numRooms()):
+                if self.data_[row][col] == 0:
+                    self.zeros_[row][col] == 0
+                else :
+                    self.zeros_[row][col] == -1
+                
 
     def __str__(self):
         return self.data_.__str__()
