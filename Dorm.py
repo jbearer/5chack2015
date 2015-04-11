@@ -3,6 +3,7 @@ from Room import *
 class Dorm:
     def __init__ (self, listRooms, name):
         self.listRooms_ = listRooms
+        self.numRooms_ = len(listRooms)
         self.name_ = name
     
     def existsEmptyRoom (self, num):
@@ -30,3 +31,10 @@ class Dorm:
         
     def name(self):
         return self.name_
+
+    def totalUtil(self):
+        totalVal = 0
+        for i in range(numRooms_):
+            for j in range(i.getStudents()):
+                totalVal = totalVal + j.getWeight(name_)
+        return totalVal
