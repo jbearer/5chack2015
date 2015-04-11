@@ -133,21 +133,21 @@ class Matrix:
                     self.zeros_[row][col] == -1
                 
 
-    def findPrimedZeros(self, row):
+    def findPrimedZerosInRow(self, row):
         col_index = []
         for i in range(len(self.data_[row])):
             if self.zeros_[row][i] == 1:
                 col_index += [i]
         return col_index
         
-    def findStarredZeros(self, column):
+    def findStarredZerosInCol(self, column):
         row_index = []
         for row in range(len(self.data_)):
             if self.zeros_[row][column] == 2:
                 row_index += [row]
         return row_index
 
-    def indicesOfStarZerosInRow(self, rowNum):
+    def findPrimedZerosInCol(self, rowNum):
         colInd = []
         for i in range(len(self.data[rowNum])):
             if self.data[rowNum][i] == 2:
