@@ -21,6 +21,11 @@ class Student:
                 choice = (dorm, self.weight_[dorm])
                 
         return choice
+    
+    def setRoomMate(self, mate):
+        self.roomMate_ = mate
+    def setRoomType(self, rType):
+        self.roomType = rType
         
     def __str__(self):
         return self.name_
