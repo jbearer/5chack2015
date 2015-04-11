@@ -7,7 +7,7 @@ class Matrix:
         if len(students) < len(dorms):
             numExtraRows = len(dorms) - len(students)
             extraRow = [0] * len(dorms)
-            self.data_ += extraRows*numExtraRows
+            self.data_ += extraRow*numExtraRows
             
         elif len(dorms) < len(students):
             numExtraCols = len(students) - len(dorms)
@@ -21,7 +21,7 @@ class Matrix:
         return len(self.data_)
     
     def minInRow(self, row):
-        assert(row < numStudents())
+        assert(row < self.numStudents())
         
         return min(self.data_[row])
     
