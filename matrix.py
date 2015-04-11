@@ -152,7 +152,42 @@ class Matrix:
         for i in range(len(self.data[rowNum])):
             if self.data[rowNum][i] == 2:
                 colInd.append(i)
-        return colInd 
-
+        return colInd
+       
+    def step1(self):
+        minVal = 10000
+        for row in range(len(self.data_)):
+            for col in range(len(self.data_[row])):
+                if self.data_[row][col] < minVal:
+                    minVal = self.data_[row][col]
+                    
+        for row in range(len(self.data_)):
+            for col in range(len(self.data_[row])):
+                self.data_[row][col] += -1*minVal
+            
+    def step2(self):
+        minVal = 10000
+        for col in range(len(self.data_[0])):
+            for row in range(len(self.data_)):
+                if self.data_[row][col] < minVal:
+                    minVal = self.data_[row][col]
+                    
+        for col in range(len(self.data_[0])):
+            for row in range(len(self.data_)):
+                self.data_[row][col] += -1*minVal
+      
+    def step5(self):
+        min = self.minXRowUnXColumns()
+        
+        for i in range(len(self.data_)):
+            if self.data_.coverRow(i):
+                for j in range(len(self.data_[i])):
+                    self.data_[i][j] -= min
+        
+        for i in range(len(self.data_[0])):
+            if self.data_.coverCol(i):
+                for j in range(len(self.data_)):
+                    self.data_[j][i] += min
+                   
     def __str__(self):
         return self.data_.__str__()
