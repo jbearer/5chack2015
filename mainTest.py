@@ -3,41 +3,89 @@ from Dorm import Dorm
 from matrix import Matrix
 import random
 
-dorms = []
 students = []
-
-NUMDORMS = 4
+dorms = []
+NUMDORMS = 6
 NUMSINGLES = 1
-NUMDOUBLES = 0
+NUMDOUBLES = 1
 ROOMSPERDORM = NUMSINGLES + NUMDOUBLES
 NUMSTUDENTS = NUMDORMS * (NUMSINGLES + NUMDOUBLES * 2)
 
-def initDorms():
-    for dorm in range(NUMDORMS):
-        dorms.append(Dorm(NUMSINGLES, NUMDOUBLES, dorm*" "))
-        
+def start():
+    dormWest = Dorm(1, 1, "West")
+    dormNorth = Dorm(1, 1, "North")
+    dormEast = Dorm(1, 1, "East")
+    dormSouth = Dorm(0, 1, "South")
+    dormLinde = Dorm(0, 1, "Linde")
+    dormCase = Dorm(0, 1, "Case")
+    dorms.append(dormWest)
+    dorms.append(dormNorth)
+    dorms.append(dormEast)
+    dorms.append(dormSouth)
+    dorms.append(dormLinde)
+    dorms.append(dormCase)
+
 def initStudents():
-    weights1 = {'':1, ' ':19, '  ':3, '   ':1}
-    stud1 = Student(1, None, weights1, 'a')
-    students.append(stud1)
+    listStudents = []
+    weight1 = {"West": 20, "East": 1, "South": 1, "North": 1, "Linde": 1, "Case": 1}
+    student1 = Student(1, "Noe", None, weight1)
+    listStudents.append(student1)
     
-    weights2 = {'':11, ' ':18, '  ':6, '   ':20}
-    stud2 = Student(1, None, weights2, 'b')
-    students.append(stud2)
+    weight2 = {"West": 6, "East": 15, "South": 1, "North": 1, "Linde": 1, "Case": 1}
+    student2 = Student(1, "Eduardo", None, weight2)
+    listStudents.append(student2)
     
-    weights3 = {'':6, ' ':3, '  ':2, '   ':15}
-    stud3 = Student(1, None, weights3, 'c')
-    students.append(stud3)
+    weight3 = {"West": 5, "East": 12, "South": 3, "North": 1, "Linde": 2, "Case": 2}
+    student3 = Student(2, "Isaiah", "Hobert", weight3)
+    listStudents.append(student3)
+    student4 = Student(2, "Hobert", "Isaiah", weight3)
+    listStudents.append(student4)
+    
+    weight5 = {"West": 9, "East": 10, "South": 1, "North": 2, "Linde": 2, "Case": 1}
+    student5 = Student (1, "Joseph", None, weight5)
+    listStudents.append(student5)
+    
+    weight6 = {"West": 10, "East": 1, "South": 3, "North": 9, "Linde": 1, "Case": 1}
+    student6 = Student(1, "Federico", None, weight6)
+    listStudents.append(student6)
+    
+    weight7 = {"West": 13, "East": 5, "South": 1, "North": 2, "Linde": 2, "Case": 2}
+    student7 = Student (1, "Edmundo", None, weight7)
+    listStudents.append(student7)
+    
+    numWantSingleL = []
+    for i in range(len(listStudents)):
+        if listStudents[i].getRoomType() == 1:
+            numWantSingleL.append(listStudents[i])
+
+    listSingles = []
+    for i in range(NUMSINGLES):
+        listSingles.append(numWantSingleL.pop(random.randrange(0,len(numWantSingleL))))
+
+    listDoubles = []
+    
+    for i in range(len(numWantSingleL)):
+        listDoubles.append(numWantSingleL[i])
+   
+    for i in range(0, len(listStudents)):
+        if listStudents[i].getRoomType() == 2:
+            listDoubles.append(listStudents[i]) 
     
 if __name__ == '__main__':
-    initDorms()
     initStudents()
-    for dorm in dorms:
-        #print dorm.totalUtil()
-        pass
+    start()
     
+    """for dorm in dorms:
+        print dorm.totalUtil()
+    
+<<<<<<< HEAD
     singles = [student for student in students if student.getRoomType() == 1]
     m = Matrix(singles, dorms)
     result = m.optimize()
     for pairing in result:
         print pairing[0], pairing[1]
+=======
+    singles = [student for student in self.students if student.getRoomType() == 1]
+    m = Matrix(singles, self.dorms)
+    print m.optimize() """
+>>>>>>> origin/master
