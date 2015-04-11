@@ -115,6 +115,15 @@ class Matrix:
     def getCoveredCols(self):
         return self.coveredCols_
         
+    def minXRowUnXColumns(self):
+        mins = []
+        for row in range(self.numStudents()):
+            for col in range(self.numRooms()):
+                if self.coveredRows_[row] and not self.coveredCols_[col]:
+                    mins.append(self.data_[row][col])
+                
+        return min(mins)
+        
     def updateZeros(self):
         for row in range(self.numStudents()):
             for col in range(self.numRooms()):
