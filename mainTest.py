@@ -38,4 +38,6 @@ if __name__ == '__main__':
     
     singles = [student for student in students if student.getRoomType() == 1]
     m = Matrix(singles, dorms)
-    print m.optimize()
+    result = m.optimize()
+    for pairing in result:
+        print pairing[0], pairing[1]
