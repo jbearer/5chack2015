@@ -33,7 +33,9 @@ if __name__ == '__main__':
     initDorms()
     initStudents()
     for dorm in dorms:
-        print dorm.totalUtil()
+        #print dorm.totalUtil()
+        pass
     
     singles = [student for student in students if student.getRoomType() == 1]
     m = Matrix(singles, dorms)
+    print m.optimize()
