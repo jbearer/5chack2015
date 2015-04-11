@@ -193,22 +193,24 @@ class Matrix:
         return self.step3()
       
     def step3(self):
-        for row in range(self.numStudents()):
-            unprimed = self.findUnprimedZerosInRow(row)
-            if unprimed != []:
-                col = unprimed[0]
-                self.primeAllZerosInColumn(col)
-                self.primeAllZerosInRow(row)
-                self.starZero(row, col)
-        if self.isDone():
-            ret = []
-            for student in range(len(self.students_)):
-                for room in range(self.numRooms()):
-                    if self.isStarred(student, room):
-                        ret.append((self.students_[student], self.rooms_[room]))
-            return ret
-        else:
-            return self.step4()
+        while(True):
+            for row in range(self.numStudents()):
+                unprimed = self.findUnprimedZerosInRow(row)
+                if unprimed != []:
+                    col = unprimed[0]
+                    self.primeAllZerosInColumn(col)
+                    self.primeAllZerosInRow(row)
+                    self.starZero(row, col)
+            if self.isDone():
+                ret = []
+                for student in range(len(self.students_)):
+                    for room in range(self.numRooms()):
+                        if self.isStarred(student, room):
+                            ret.append((self.students_[student], self.rooms_[room]))
+                return ret
+            else:
+                self.step4()
+                self.step5()
                 
     def step4(self):
         for row in range(self.numStudents()):
@@ -221,7 +223,6 @@ class Matrix:
                     rowsToMark = self.findStarredZerosInCol(col)
                     for rowToMark in rowsToMark:
                         self.coverRow(rowToMark)
-        return self.step5()
       
     def step5(self):
         mini = self.minXRowUnXColumns()
@@ -237,7 +238,6 @@ class Matrix:
                     self.data_[j][i] += mini
         
         self.updateZeros()
-        return self.step3()
         
     def primeAllZerosInColumn(self, col):
         for row in range(self.numStudents()):
