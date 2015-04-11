@@ -24,8 +24,8 @@ class Matrix:
         #0 represents neutral, 1 prime, 2 star
         #-1 represents a number that is not a zero
         self.zeros_ = [[0]*self.numRooms()] * self.numStudents()
-        for row in self.zeros_:
-            for col in row:
+        for row in range(len(self.zeros_)):
+            for col in range(len(self.zeros_[row])):
                 if self.data_[row][col] != 0:
                     self.zeros_[row][col] = -1
                     
@@ -99,10 +99,10 @@ class Matrix:
     def getZeros(self):
         return self.zeros_
         
-    def getCoveredRows_(self):
+    def getCoveredRows(self):
         return self.coveredRows_
         
-    def getCoveredCols_(self):
+    def getCoveredCols(self):
         return self.coveredCols_
 
     def __str__(self):
