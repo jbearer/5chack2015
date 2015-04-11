@@ -2,12 +2,12 @@
 class Room:
     def __init__(self):
         self.students_ = []
-        self.numStudents_ = None
+        self.capacity_ = None
         
-    def __init__(self, numStudents, students):
-        self.numStudents_ = numStudents
+    def __init__(self, capacity, students):
+        self.capacity_ = capacity
         
-        assert(self.numStudents_ >= len(students))
+        assert(self.capacity_ >= len(students))
         
         self.students_ = students
         
@@ -15,14 +15,14 @@ class Room:
         return self.students_
     
     def roomType(self):
-        return self.numStudnets_
+        return self.capacity_
     
     def occupancy(self):
         return len(self.students_)
     
     def full(self):
-        return len(self.students_) == self.numStudents_
+        return len(self.students_) == self.capacity_
     
     def addStudent(self, student):
-        assert(len(self.students_) < self.numStudents_)
+        assert(len(self.students_) < self.capacity_)
         self.students_.append(student)
