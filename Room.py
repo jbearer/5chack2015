@@ -15,13 +15,13 @@ class Room:
         return self.students_
     
     def roomType(self):
-        return self.numStudnets_
+        return self.numStudents_
     
     def occupancy(self):
         return len(self.students_)
     
     def full(self):
-        return len(self.students_) == self.numStudents_
+        return occupancy(self) == self.numStudents_
     
     def addStudent(self, student):
         assert(len(self.students_) < self.numStudents_)
