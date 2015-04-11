@@ -1,8 +1,9 @@
 from Room import *
 
 class Dorm:
-    def __init__ (self, listRooms):
+    def __init__ (self, listRooms, name):
         self.listRooms_ = listRooms
+        self.name_ = name
     
     def existsEmptyRoom (self, num):
         for i in range(len(self.listRooms_)):
@@ -26,3 +27,6 @@ class Dorm:
                 if i.full() == True:
                     fullRoomsL.append(i)
         return fullRoomsL
+        
+    def name(self):
+        return self.name_
