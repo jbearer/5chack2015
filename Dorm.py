@@ -7,9 +7,9 @@ class Dorm:
         
         self.listRooms_ = []
         for i in range(numSingles):
-            self.listRooms_.append(Room(1, []))
+            self.listRooms_.append(Room(1, [], name))
         for i in range(numDoubles):
-            self.listRooms_.append(Room(2, []))
+            self.listRooms_.append(Room(2, [], name))
             
         self.numRooms_ = len(self.listRooms_)
         self.name_ = name
@@ -19,24 +19,24 @@ class Dorm:
     
     def existsEmptyRoom (self, num):
         for i in range(len(self.listRooms_)):
-            if i.roomType() == num:
-                if i.occupancy() == 0:
+            if self.listRooms_[i].roomType() == num:
+                if self.listRooms_[i].occupancy() == 0:
                     return True
         return False
                 
     def emptyRooms(self, num):
         emptyRoomsL = []
         for i in range(len(self.listRooms_)):
-            if i.RoomType() == num:
-                if i.occupancy() == 0:
+            if self.listRooms_[i].RoomType() == num:
+                if self.listRooms_[i].occupancy() == 0:
                     emptyRoomsL.append(i)
         return emptyRoomsL
     
     def fullRooms(self, num):
         fullRoomsL = []
         for i in range(len(self.listRooms_)):
-            if i.RoomType() == num:
-                if i.full() == True:
+            if self.listRooms_[i].RoomType() == num:
+                if self.listRooms_[i].full() == True:
                     fullRoomsL.append(i)
         return fullRoomsL
         

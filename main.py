@@ -7,22 +7,51 @@ students = []
 
 NUMDORMS = 2
 ROOMSPERDORM = 6
+NUMSINGLES = 3
+NUMDOUBLES = 3
 NUMSTUDENTS = NUMDORMS * ROOMSPERDORM * 1.5
 
 def initDorms():
     for dorm in range(NUMDORMS):
-        dorms.append(Dorm(ROOMSPERDORM / 2,ROOMSPERDORM / 2, dorm*" "))
+        dorms.append(Dorm(NUMSINGLES, NUMDOUBLES, dorm*" "))
         
 def initStudents():
-    for student in range(NUMDORMS * ROOMSPERDORM / 2):
+    for student in range(NUMDORMS * NUMSINGLES):
         weights = {}
         for dorm in dorms:
             weights[dorm.name()] = random.random()
-        students.append(Student(1, None, weights))
-    dorms[0].getListRooms()[0].addStudent(students[0])
-    dorms[0].getListRooms()[1].addStudent(students[1])
-
+        stud = Student(1, None, weights)
+        students.append(stud)
+        
+        assignedDorm = dorms[random.randrange(0,len(dorms))]
+        while (assignedDorm.existsEmptyRoom(1) == False):
+            assignedDorm = dorms[random.randrange(0,len(dorms))]
+    
+        listRooms = assignedDorm.getListRooms()
+        room = listRooms[random.randrange(0,NUMSINGLES)]
+        while room.full() == True:
+            room = listRooms[random.randrange(0,NUMSINGLES)]
+        room.addStudent(stud)
+      
+    for student in range(NUMDORMS * NUMDOUBLES):
+        weights = {}
+        for dorm in dorms:
+            weights[dorm.name()] = random.random()
+        stud = Student(2, None, weights)
+        students.append(stud)
+        
+        assignedDorm = dorms[random.randrange(0,len(dorms))]
+        while (assignedDorm.existsEmptyRoom(2) == False):
+            assignedDorm = dorms[random.randrange(0,len(dorms))]
+    
+        listRooms = assignedDorm.getListRooms()
+        room = listRooms[random.randrange(NUMSINGLES,len(listRooms))]
+        while room.full() == True:
+            room = listRooms[random.randrange(NUMSINGLES, len(listRooms))]
+        room.addStudent(stud)
+    
 if __name__ == '__main__':
     initDorms()
     initStudents()
-    print sum([dorm.totalUtil() for dorm in dorms])
+    for dorm in dorms:
+        print dorm.totalUtil()

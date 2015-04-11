@@ -4,8 +4,9 @@ class Room:
         self.students_ = []
         self.capacity_ = None
         
-    def __init__(self, capacity, students):
+    def __init__(self, capacity, students, dorm):
         self.capacity_ = capacity
+        self.dorm_ = dorm
         
         assert(self.capacity_ >= len(students))
         
@@ -13,6 +14,9 @@ class Room:
         
     def getStudents(self):
         return self.students_
+        
+    def getDormName(self):
+        return self.dorm_
     
     def roomType(self):
         return self.capacity_
