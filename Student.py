@@ -12,3 +12,11 @@ class Student:
         
     def getWeight(self, dorm):
         return self.weight_[dorm]
+        
+    def firstChoice(self):
+        choice = ('', -1)
+        for dorm in self.weight_.keys():
+            if self.weight_[dorm] > choice[1]:
+                choice = (dorm, self.weight_[dorm])
+                
+        return choice

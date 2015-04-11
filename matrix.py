@@ -1,22 +1,29 @@
-
 class Matrix:
     def __init__(self, students, dorms):
-        maxVal = max([max(student.weights()) for student in students])
-        self.data_ = [[maxVal - student.weights()[dorm.name()] for dorm in dorms] for student in students]
+        maxVal = max([student.firstChoice()[1] for student in students])
         
-        if len(students) < len(dorms):
-            numExtraRows = len(dorms) - len(students)
-            extraRow = [0] * len(dorms)
-            self.data_ += extraRows*numExtraRows
+        roomType = students[0].getRoomType()
+        rooms = []
+        for dorm in dorms:
+            rooms += dorm.emptyRooms(roomType)
             
-        elif len(dorms) < len(students):
-            numExtraCols = len(students) - len(dorms)
+        self.data_ = [[maxVal - student.getWeight(room.getDormName()) for room in rooms] for student in students]
+        
+        if len(students) < len(rooms):
+            numExtraRows = len(rooms) - len(students)
+            extraRow = [0] * len(rooms)
+            self.data_ += extraRow*numExtraRows
+            
+        elif len(rooms) < len(students):
+            numExtraCols = len(students) - len(rooms)
             for row in self.data_:
                 row += [0] * numExtraCols
                 
+        assert(self.numRooms() == self.numStudents())
+            
         #0 represents neutral, 1 prime, 2 star
         #-1 represents a number that is not a zero
-        self.zeros_ = [[0]*self.numDorms()] * self.numStudents()
+        self.zeros_ = [[0]*self.numRooms()] * self.numStudents()
         for row in self.zeros_:
             for col in row:
                 if self.data_[row][col] != 0:
@@ -24,9 +31,9 @@ class Matrix:
                     
         #False represents uncovered, True covered
         self.coveredRows_ = [False]*self.numStudents()
-        self.coveredCols_ = [False]*self.numDorms()
+        self.coveredCols_ = [False]*self.numRooms()
         
-    def numDorms(self):
+    def numRooms(self):
         return len(self.data_[0])
     
     def numStudents(self):
@@ -38,7 +45,7 @@ class Matrix:
         return min(self.data_[row])
     
     def minInCol(self, col):
-        assert(col < self.numDorms())
+        assert(col < self.numRooms())
         
         return min([row[col] for row in self.data_])
     
