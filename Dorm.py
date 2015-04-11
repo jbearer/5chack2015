@@ -7,9 +7,9 @@ class Dorm:
         
         self.listRooms_ = []
         for i in range(numSingles):
-            self.listRooms_.append(Room(1, [], name))
+            self.listRooms_.append(Room(1, [], name, i))
         for i in range(numDoubles):
-            self.listRooms_.append(Room(2, [], name))
+            self.listRooms_.append(Room(2, [], name, i + numSingles))
             
         self.numRooms_ = len(self.listRooms_)
         self.name_ = name
@@ -49,3 +49,6 @@ class Dorm:
             for j in range(len(self.listRooms_[i].getStudents())):
                 totalVal = totalVal + self.listRooms_[i].getStudents()[j].getWeight(self.name_)
         return totalVal
+        
+    def __str__(self):
+        return self.name_

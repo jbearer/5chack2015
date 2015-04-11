@@ -1,8 +1,9 @@
 class Student:
-    def __init__(self, roomType, roomMate, weight):
+    def __init__(self, roomType, roomMate, weight, name):
         self.roomType_ = roomType
         self.roomMate_ = roomMate
         self.weight_ = weight
+        self.name_ = name
     
     def getRoomType(self):
         return self.roomType_
@@ -20,3 +21,6 @@ class Student:
                 choice = (dorm, self.weight_[dorm])
                 
         return choice
+        
+    def __str__(self):
+        return self.name_
