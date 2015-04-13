@@ -32,5 +32,5 @@ class Room:
         assert(len(self.students_) < self.capacity_)
         self.students_.append(student)
         
-    def __str__(self):
+    def __repr__(self):
         return self.dorm_ + str(self.rmNumber_)

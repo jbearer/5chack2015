@@ -180,93 +180,58 @@ class Matrix:
         return colInd
         
     def optimize(self):
+        self.makeRowZeros()
+        self.makeColZeros()
+        
+        self.starAllZeros()
+        self.coverColumns()
+        while (not self.isDone()):
+            if self.primeAndCover():
+                self.subtractMin()
+            else:
+                self.sequence()
+                
+        ret = []
+        for student in range(len(self.students_)):
+            for room in range(self.numRooms()):
+                if self.isStarred(student, room):
+                    ret.append((self.students_[student], self.rooms_[room]))
+        return ret
+        
+            
+    def makeRowZeros(self):
         for row in range(len(self.data_)):
             minVal = self.minInRow(row)
             self.subtractFromRow(row, minVal)
             
         return self.step2()
             
-    def step2(self):
+    def makeColZeros(self):
         for col in range(self.numRooms()):
             minVal = self.minInCol(col)
             self.subtractFromCol(col, minVal)
-        return self.starAllZeros()
+        return self.algLoop()
       
-    '''def step3(self):
-        carryon = True
-        while(carryon == True):
-            for row in range(self.numStudents()):
-                unprimed = self.findUnprimedZerosInRow(row)
-                if unprimed != []:
-                    col = unprimed[0]
-                    self.primeAllZerosInColumn(col)
-                    self.primeAllZerosInRow(row)
-                    self.starZero(row, col)
-            if self.isDone():
-                ret = []
-                for student in range(len(self.students_)):
-                    for room in range(self.numRooms()):
-                        if self.isStarred(student, room):
-                            ret.append((self.students_[student], self.rooms_[room]))
-                return ret
-            else:
-                self.step4()
-                self.step5()
-            #carryon = False
-                
-    def step4(self):
-        for row in range(self.numStudents()):
-            starred = self.findStarredZerosInRow(row)
-            if not starred:
-                self.step5()
-                self.coverRow(row)
-                cols = self.findPrimedZerosInRow(row)
-                for col in cols:
-                    self.coverCol(col)
-                    """rowsToMark = self.findStarredZerosInCol(col)
-                    for rowToMark in rowsToMark:
-                        self.coverRow(rowToMark)"""
-      
-    def step5(self):
-        mini = self.minXRowUnXColumns()
-        
-        for i in range(len(self.data_)):
-            if self.getCoveredRows()[i]:
-                for j in range(len(self.data_[i])):
-                    self.data_[i][j] += -1*mini
-        
-        for i in range(len(self.data_[0])):
-            if self.getCoveredCols()[i]:
-                for j in range(len(self.data_)):
-                    self.data_[j][i] += mini
-        
-        self.updateZeros()'''
     def starAllZeros(self):
-        for row in range(self.numStudents()):
-            for col in range(self.numRooms()):
-                if self.data_[row][col] == 0:
-                    rowStars = self.findStarredZerosInRow(row)
-                    colStars = self.findStarredZerosInCol(col)
-                    if not rowStars and not colStars:
-                        self.starZero(row, col)
-                        
-        return self.coverColumns()
+        while (True):
+            for row in range(self.numStudents()):
+                for col in range(self.numRooms()):
+                    if self.data_[row][col] == 0:
+                        rowStars = self.findStarredZerosInRow(row)
+                        colStars = self.findStarredZerosInCol(col)
+                        if not rowStars and not colStars:
+                            self.starZero(row, col)
                         
     def coverColumns(self):
         for col in range(self.numRooms()):
             if self.findStarredZerosInCol(col):
                 self.coverCol(col)
-        if self.isDone():
-            ret = []
-            for student in range(len(self.students_)):
-                for room in range(self.numRooms()):
-                    if self.isStarred(student, room):
-                        ret.append((self.students_[student], self.rooms_[room]))
-            return ret
-        else:
-            return self.primeAndCover()
             
     def primeAndCover(self):
+        '''
+        Returns True if operation finished and algorithm should proceed to subtract min
+        Returns False if intermediate step: algorithm should proceed to sequence
+        '''
         row = 0
         while row in range(self.numStudents()):
             col = 0
@@ -281,11 +246,10 @@ class Matrix:
                             row = 0
                             col = 0
                         else:
-                            return self.sequence(row, col)
+                            return False
                 col += 1
             row += 1
-        #all covered
-        return self.subtractMin()
+        return True
         
     def sequence(self, row, col):
         primes = [(row, col)]
@@ -308,7 +272,7 @@ class Matrix:
             self.uncoverRow(row)
         for col in range(self.numRooms()):
             self.uncoverCol(col)
-        return self.coverColumns()
+        self.coverColumns()
         
     def subtractMin(self):
         mini = self.minXRowXColumns()
@@ -324,7 +288,6 @@ class Matrix:
                     self.data_[j][i] += -1 * mini
         
         self.updateZeros()
-        return self.primeAndCover()
                         
         
     def primeAllZerosInColumn(self, col):
@@ -343,5 +306,5 @@ class Matrix:
                 return False
         return True
 
-    def __str__(self):
+    def __repr__(self):
         return self.data_.__str__()

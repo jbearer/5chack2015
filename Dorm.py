@@ -50,5 +50,5 @@ class Dorm:
                 totalVal = totalVal + self.listRooms_[i].getStudents()[j].getWeight(self.name_)
         return totalVal
         
-    def __str__(self):
+    def __repr__(self):
         return self.name_
