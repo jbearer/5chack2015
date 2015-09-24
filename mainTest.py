@@ -27,29 +27,30 @@ def start():
 
 def initStudents():
     listStudents = []
-    weight1 = {"West": 20, "East": 1, "South": 1, "North": 1, "Linde": 1, "Case": 1}
+    weight1 = {"West": 10, "East": 1, "South": 1, "North": 6, "Linde": 1, "Case": 6}
     student1 = Student(1, None, weight1, "Noe")
     listStudents.append(student1)
     
-    weight2 = {"West": 6, "East": 15, "South": 1, "North": 1, "Linde": 1, "Case": 1}
+    weight2 = {"West": 6, "East": 7, "South": 1, "North": 1, "Linde": 1, "Case": 9}
     student2 = Student(1, None, weight2, "Eduardo")
     listStudents.append(student2)
     
-    weight3 = {"West": 5, "East": 12, "South": 3, "North": 1, "Linde": 2, "Case": 2}
+    weight3 = {"West": 5, "East": 6, "South": 3, "North": 1, "Linde": 8, "Case": 2}
     student3 = Student(2, "Hobert", weight3, "Isaiah")
     listStudents.append(student3)
+    
     student4 = Student(2, "Isaiah", weight3, "Hobert")
     listStudents.append(student4)
     
-    weight5 = {"West": 9, "East": 10, "South": 1, "North": 2, "Linde": 2, "Case": 1}
+    weight5 = {"West": 7, "East": 5, "South": 6, "North": 4, "Linde": 2, "Case": 1}
     student5 = Student (1, None, weight5,"Joseph")
     listStudents.append(student5)
     
-    weight6 = {"West": 10, "East": 1, "South": 3, "North": 9, "Linde": 1, "Case": 1}
+    weight6 = {"West": 2, "East": 1, "South": 3, "North": 9, "Linde": 9, "Case": 1}
     student6 = Student(1, None, weight6, "Federico")
     listStudents.append(student6)
     
-    weight7 = {"West": 13, "East": 5, "South": 1, "North": 2, "Linde": 2, "Case": 2}
+    weight7 = {"West": 3, "East": 5, "South": 6, "North": 2, "Linde": 2, "Case": 7}
     student7 = Student (1, None, weight7, "Edmundo")
     listStudents.append(student7)
     
@@ -64,16 +65,18 @@ def initStudents():
 
     listDoubles = []
     
-    for i in range(len(numWantSingleL)):
-        numWantSingleL[i].setRoomType(2)
-        listDoubles.append(numWantSingleL[i])
-   
+    
     for i in range(0, len(listStudents)):
         if listStudents[i].getRoomType() == 2:
             listDoubles.append(listStudents[i]) 
             
+    for i in range(len(numWantSingleL)):
+        numWantSingleL[i].setRoomType(2)
+        listDoubles.append(numWantSingleL[i])
+            
     listDoubles = pairSingles(listDoubles)
     listDoubles = clearUp(listDoubles)
+    
     
     assign(listSingles)
     assign(listDoubles)
@@ -94,7 +97,7 @@ def clearUp(listDoubles):
         j = i + 1
         while j < len(listDoubles):
             if listDoubles[j].name_ == name:
-                listDoubles.pop(j)
+                listDoubles.remove(listDoubles[j])
                 j = len(listDoubles)
                 i = -1
             j+=1
@@ -105,7 +108,11 @@ def assign(students):
     m = Matrix(students, dorms)
     result = m.optimize()
     for pairing in result:
-        print pairing[0], pairing[1]
+        print pairing[0]
+        #if pairing[0].roomMate_:
+        #    print pairing[0].roomMate_
+        print pairing[1]
+        print ''
     
 if __name__ == '__main__':
     
